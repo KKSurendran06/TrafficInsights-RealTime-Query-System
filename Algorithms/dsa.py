@@ -1,11 +1,11 @@
 import math
 
-no_of_cars_lane1=40
-no_of_cars_lane2=20
-no_of_cars_lane3=25
-no_of_cars_lane4=15
+no_of_cars_in_lane1=40
+no_of_cars_in_lane2=0
+no_of_cars_in_lane3=0
+no_of_cars_in_lane4=25
 
-SUM = no_of_cars_lane1+no_of_cars_lane2+no_of_cars_lane3+no_of_cars_lane4
+total_no_of_cars = no_of_cars_in_lane1+no_of_cars_in_lane2+no_of_cars_in_lane3+no_of_cars_in_lane4
 
 def calTime(sum):
     if sum<=25:
@@ -27,18 +27,21 @@ def calTime(sum):
         T=360 
         return T      
 
-setTime = calTime(SUM)
+setTime = calTime(total_no_of_cars)
 
-def laneTime(L1,L2,L3,L4):
+def findLaneTime(L1,L2,L3,L4):
     lane = [L1,L2,L3,L4]
     setNewLaneTime=[]
     for num in lane:
-        ratio = (num/SUM) * setTime
+        ratio = (num/total_no_of_cars) * setTime
         setNewLaneTime.append(ratio)
     return setNewLaneTime    
    
 def main():
-    newTime = laneTime(no_of_cars_lane1, no_of_cars_lane2, no_of_cars_lane3, no_of_cars_lane4)
+    newTime = findLaneTime(no_of_cars_in_lane1, no_of_cars_in_lane2, no_of_cars_in_lane3, no_of_cars_in_lane4)
+    print(f'sum of total vehicle {total_no_of_cars}')
+    print(f'test: total time of all car {sum(newTime)}')
+    print('test END')
     print(f'set traffic time to {setTime}')
     print(f'The new lane time will be {newTime}')
 
