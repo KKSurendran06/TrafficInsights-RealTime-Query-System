@@ -6,8 +6,8 @@ import numpy as np
 
 cap = cv2.VideoCapture("video.mp4")
 
-min_width_rect = 80  #min width of the rectangle
-min_height_rect = 80 #min height of the rectangle
+min_width_rect = 80  
+min_height_rect = 80 
 
 
 count_line_pos = 560
@@ -21,14 +21,13 @@ def center_handle(x,y,w,h):
     return cx,cy
 
 detect = []
-offset = 6 #allowed error between pixel
+offset = 6 
 counter =0 
 
 while True:
     ret, frame1 = cap.read()
     grey = cv2.cvtColor(frame1,cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(grey,(3,3),5)
-    # being applied on each frame
     img_sub = algo.apply(blur)
     dilate = cv2.dilate(img_sub, np.ones((5,5)))
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))
