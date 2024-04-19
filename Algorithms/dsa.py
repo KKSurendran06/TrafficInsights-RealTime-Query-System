@@ -1,12 +1,20 @@
 import math
-greenlight= False
+
 L1=40
 L2=20
 L3=25
 L4=15
+
 sum=L1+L2+L3+L4
+greenlight= False
+   
+def no_of_vehicles(L1,L2,L3,L4):
+    Lane=[L1,L2,L3,L4]
+    for num in Lane:
+        ratio = (num/sum) * calTime(sum)
+        checklight(ratio)
+
 def calTime(sum):
-    
     if sum<=25:
         T=60
         return T
@@ -24,14 +32,7 @@ def calTime(sum):
         return T 
     else:
         T=360 
-        return T    
-
-def no_of_vehicles(L1,L2,L3,L4):
-    Lane=[L1,L2,L3,L4]
-    for num in Lane:
-        ratio = (num /sum) * calTime(sum)
-        checklight(ratio)
-
+        return T         
 
 def checklight(duration):
     greenlight=True
