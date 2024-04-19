@@ -1,18 +1,11 @@
 import math
 
-L1=40
-L2=20
-L3=25
-L4=15
+no_of_cars_lane1=40
+no_of_cars_lane2=20
+no_of_cars_lane3=25
+no_of_cars_lane4=15
 
-sum=L1+L2+L3+L4
-greenlight= False
-   
-def no_of_vehicles(L1,L2,L3,L4):
-    Lane=[L1,L2,L3,L4]
-    for num in Lane:
-        ratio = (num/sum) * calTime(sum)
-        checklight(ratio)
+SUM = no_of_cars_lane1+no_of_cars_lane2+no_of_cars_lane3+no_of_cars_lane4
 
 def calTime(sum):
     if sum<=25:
@@ -32,16 +25,21 @@ def calTime(sum):
         return T 
     else:
         T=360 
-        return T         
+        return T      
 
-def checklight(duration):
-    greenlight=True
-    print("GREEN")
-    i=0
-    while i < math.floor(duration):
-        if i<0:
-            print("RED")
-            return
-        i=i-1
+setTime = calTime(SUM)
 
-no_of_vehicles(L1,L2,L3,L4)
+def laneTime(L1,L2,L3,L4):
+    lane = [L1,L2,L3,L4]
+    setNewLaneTime=[]
+    for num in lane:
+        ratio = (num/SUM) * setTime
+        setNewLaneTime.append(ratio)
+    return setNewLaneTime    
+   
+def main():
+    newTime = laneTime(no_of_cars_lane1, no_of_cars_lane2, no_of_cars_lane3, no_of_cars_lane4)
+    print(f'set traffic time to {setTime}')
+    print(f'The new lane time will be {newTime}')
+
+main()
