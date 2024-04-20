@@ -20,8 +20,6 @@ def calTime(sum):
         T=360 
         return T      
 
-setTime = calTime(total_no_of_cars)
-
 def findLaneTime(L1,L2,L3,L4):
     lane = [L1,L2,L3,L4]
     setNewLaneTime=[]
@@ -31,12 +29,15 @@ def findLaneTime(L1,L2,L3,L4):
     return setNewLaneTime    
    
 def main():
-    no_of_cars_in_lane1=40
-    no_of_cars_in_lane2=0
-    no_of_cars_in_lane3=0
+    global total_no_of_cars
+    global setTime
+    no_of_cars_in_lane1=30
+    no_of_cars_in_lane2=30
+    no_of_cars_in_lane3=30
     no_of_cars_in_lane4=25
     total_no_of_cars = no_of_cars_in_lane1+no_of_cars_in_lane2+no_of_cars_in_lane3+no_of_cars_in_lane4
 
+    setTime = calTime(total_no_of_cars)
     newTime = findLaneTime(no_of_cars_in_lane1, no_of_cars_in_lane2, no_of_cars_in_lane3, no_of_cars_in_lane4)
     print(f'set traffic time to {setTime}')
     print(f'The new lane time will be {newTime}')
