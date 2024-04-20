@@ -59,7 +59,7 @@ while True:
                 cv2.line(frame1, (10, count_line_pos), (550, count_line_pos), (0, 127, 255), 5)
                 detect.remove((x,y))
                 print("Vehicle Counter: " + str(counter))
-        
+
 
 
     cv2.putText(frame1, "VEHICLE COUNTER: " + str(counter), (450, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 5)
