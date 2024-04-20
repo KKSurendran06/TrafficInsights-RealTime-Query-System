@@ -5,6 +5,7 @@ import csv
 import numpy as np
 import sqlite3
 
+
 db_file = 'traffic.db'
 
 
@@ -73,8 +74,8 @@ while True:
             count_id += 1
 
 
-            insert_query = 'INSERT or replace INTO traffic_data (timestamp, j1) VALUES (?, ?)'
-            cursor.execute(insert_query, (timestamp, counter))
+            insert_query = 'INSERT INTO traffic_data (timestamp,lane,count) VALUES (?,?,?)'
+            cursor.execute(insert_query, (timestamp,'J1',counter))
             conn.commit()
             print("Data inserted successfully.")
 
@@ -86,7 +87,6 @@ while True:
         break
     
 
-    conn.close()
 
 
 

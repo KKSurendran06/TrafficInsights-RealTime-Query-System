@@ -385,14 +385,3 @@ def Counter4():
     cv2.destroyAllWindows()
     cap.release( )
 
-Counter1()
-Counter2()
-Counter3()
-Counter4()
-
-if __name__ == '__main__':
-    Thread(target = Counter1).start()
-    Thread(target = Counter2).start()
-    Thread(target = Counter3).start()
-    Thread(target = Counter4).start()
-

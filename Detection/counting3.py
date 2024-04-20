@@ -8,7 +8,12 @@ import numpy as np
 
 import sqlite3
 
+
 db_file = 'traffic.db'
+
+
+conn = sqlite3.connect(db_file)
+cursor = conn.cursor()
 
 cap = cv2.VideoCapture("video.mp4")
 
@@ -71,10 +76,10 @@ while True:
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             csv_data.append([count_id, timestamp, counter])
             count_id += 1
-            conn = sqlite3.connect(db_file)
-            cursor = conn.cursor()
-            insert_query = 'INSERT or replace INTO traffic_data (timestamp, j3) VALUES (?, ?)'
-            cursor.execute(insert_query, (timestamp, counter))
+
+
+            insert_query = 'INSERT or replace INTO traffic_data (timestamp,lane,count) VALUES (?,?,?)'
+            cursor.execute(insert_query, (timestamp,'J3',counter))
             conn.commit()
             print("Data inserted successfully.")
 
@@ -85,7 +90,6 @@ while True:
     if cv2.waitKey(30) == 13:
         break
 
-    conn.close()
 
 
 

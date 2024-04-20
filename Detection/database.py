@@ -1,12 +1,23 @@
-
 import sqlite3
 
 db_file = 'traffic.db'
-
 conn = sqlite3.connect(db_file)
 cursor = conn.cursor()
 
-create_table_query = 'CREATE TABLE traffic_data (timestamp String  default 0 ,Lane String,Count INTEGER default 0)'
+try:
+    cursor.execute('SELECT Lane, MAX(Count) FROM traffic_data GROUP BY Lane')
+    rows = cursor.fetchall()
 
-cursor.execute(create_table_query)
-conn.close()
+    max_counts = {}
+    for row in rows:
+        lane, max_count = row
+        max_counts[lane] = max_count
+
+    print("Maximum Counts Per Lane:")
+    print(max_counts)
+
+except sqlite3.Error as e:
+    print("Error fetching data:", e)
+
+finally:
+    conn.close()

@@ -5,8 +5,12 @@ import csv
 import numpy as np
 import sqlite3
 
+
 db_file = 'traffic.db'
 
+
+conn = sqlite3.connect(db_file)
+cursor = conn.cursor()
 
 cap = cv2.VideoCapture("video.mp4")
 
@@ -73,11 +77,11 @@ while True:
                 count_id += 1
                 conn = sqlite3.connect(db_file)
                 cursor = conn.cursor()
-                insert_query = 'INSERT or replace INTO traffic_data (timestamp, j4) VALUES (?, ?)'
-                cursor.execute(insert_query, (timestamp, counter))
+                insert_query = 'INSERT or replace INTO traffic_data (timestamp,lane,count) VALUES (?,?,?)'
+                cursor.execute(insert_query, (timestamp,'J4',counter))
                 conn.commit()
+
                 print("Data inserted successfully.")
-    conn.close()
 
 
     cv2.putText(frame1, "COUNT: " + str(counter), (450, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 5)

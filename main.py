@@ -1,45 +1,37 @@
 import sqlite3
-from transformers import GPT2LMHeadModel, GPT2Tokenizer
-import torch
+import subprocess
+from Algorithms import dsa
+from Detection import Countingmain
 
-def execute_sql_query(connection, query):
-    try:
-        cursor = connection.cursor()
-        cursor.execute(query)
-        result = cursor.fetchall()
-        cursor.close()
-        return result
-    except (Exception, sqlite3.Error) as error:
-        print('Error executing the query:', error)
-        return None
 
-db_file = "traffic.db"
-connection = sqlite3.connect(db_file)
 
-sql_query = "SELECT lane, MAX(count) FROM traffic_data GROUP BY lane"
+db_file = 'traffic.db'
+conn = sqlite3.connect(db_file)
+cursor = conn.cursor()
 
-model_name = "gpt2-medium"
-tokenizer = GPT2Tokenizer.from_pretrained(model_name)
-model = GPT2LMHeadModel.from_pretrained(model_name)
+try:
+    cursor.execute('SELECT Lane, MAX(Count) FROM traffic_data GROUP BY Lane')
+    rows = cursor.fetchall()
 
-encoded_input = tokenizer(sql_query, return_tensors='pt')
-with torch.no_grad():
-    output = model.generate(**encoded_input)
-decoded_query = tokenizer.decode(output[0], skip_special_tokens=True)
+    max_counts = {}
+    for row in rows:
+        lane, max_count = row
+        max_counts[lane] = max_count
 
-result_set = execute_sql_query(connection, decoded_query)
+    print("Maximum Counts Per Lane:")
+    print(max_counts)
 
-max_counts = {}
-if result_set:
-    for row in result_set:
-        junction = row[0]
-        max_count = row[1]
-        max_counts[junction] = max_count
+except sqlite3.Error as e:
+    print("Error fetching data:", e)
 
-connection.close()
+finally:
+    conn.close()
+L=[]
+for i in max_counts:
+    L.append(max_counts[i])
+subprocess.run(["./run_all.sh"], check=True)
 
-print("Maximum Counts per Junction:", max_counts)
+dsa.dsa_function(L)
 
-from dsa import Main
 
-Main(max_counts['J1'], max_counts['J2'], max_counts['J3'], max_counts['J4'])
+
