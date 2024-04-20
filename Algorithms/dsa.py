@@ -1,5 +1,7 @@
 import math
 
+
+
 def calTime(sum):
     if sum<=25:
         T=60
@@ -30,11 +32,11 @@ def findLaneTime(L1,L2,L3,L4):
         setNewLaneTime.append(ratio)
     return setNewLaneTime    
    
-def main():
-    no_of_cars_in_lane1=40
-    no_of_cars_in_lane2=0
-    no_of_cars_in_lane3=0
-    no_of_cars_in_lane4=25
+def Main(a,b,c,d):
+    no_of_cars_in_lane1=a
+    no_of_cars_in_lane2=b
+    no_of_cars_in_lane3=c
+    no_of_cars_in_lane4=d
     total_no_of_cars = no_of_cars_in_lane1+no_of_cars_in_lane2+no_of_cars_in_lane3+no_of_cars_in_lane4
 
     newTime = findLaneTime(no_of_cars_in_lane1, no_of_cars_in_lane2, no_of_cars_in_lane3, no_of_cars_in_lane4)
@@ -42,4 +44,3 @@ def main():
     print(f'The new lane time will be {newTime}')
 
 
-main()

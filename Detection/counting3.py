@@ -4,6 +4,12 @@ import cv2
 import csv
 import numpy as np
 
+
+
+import sqlite3
+
+db_file = 'traffic.db'
+
 cap = cv2.VideoCapture("video.mp4")
 
 min_width_rect = 80  
@@ -65,6 +71,12 @@ while True:
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             csv_data.append([count_id, timestamp, counter])
             count_id += 1
+            conn = sqlite3.connect(db_file)
+            cursor = conn.cursor()
+            insert_query = 'INSERT or replace INTO traffic_data (timestamp, j3) VALUES (?, ?)'
+            cursor.execute(insert_query, (timestamp, counter))
+            conn.commit()
+            print("Data inserted successfully.")
 
     cv2.putText(frame1, "COUNT: " + str(counter), (450, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 5)
 
@@ -72,6 +84,13 @@ while True:
 
     if cv2.waitKey(30) == 13:
         break
+
+    conn.close()
+
+
+
+
+
 
 with open(csv_filename, 'w', newline='') as csvfile:
     csvwriter = csv.writer(csvfile)
