@@ -1,5 +1,3 @@
-import math
-
 def calTime(sum):
     if sum<=25:
         T=60
